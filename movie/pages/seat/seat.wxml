@@ -1,0 +1,50 @@
+<!--pages/seat/seat.wxml-->
+<view class='container'>
+  <view class='header' style='background-image: url({{ movie_data.movie_src }});'>
+    <view class='title'>{{ movie_data.movie_title }}</view>
+    <view class='edit'>
+      <i class='icon icon-write2'></i>
+    </view>
+  </view>
+  <view class='main'>
+    <view class='info'>
+      <view class='theater'>{{ booking_data.select_theater.title }}</view>
+      <view class='time'>{{ booking_data.select_date.year }}年{{ booking_data.select_date.month }}月{{ booking_data.select_date.date }}日 - {{ booking_data.select_time }}</view>
+    </view>
+    <view class='cutline'>
+      <view class='cutline-item'><view class='dot dot-blue'></view>已售座位</view>
+      <view class='cutline-item'><view class='dot dot-gray'></view>可选座位</view>
+      <view class='cutline-item'><view class='dot dot-orange'></view>选择座位</view>
+    </view>
+    <view class='screen'>
+      <view class='screen-shape'></view>
+      <view class='screen-text'>屏幕</view>
+    </view>
+    <view class='seats'>
+      <view class='row' wx:for='{{ seats }}' wx:key='{{ item.letter }}'>
+        <view class='letter letter-left'>{{ item.letter }}</view>
+        <view class='seat-row'>
+          <block wx:for='{{item.seats}}' wx:key='{{ item.id }}'>
+            <view class='dot-area' wx:if='{{ (selected_seats[item.id] == null) && (item.display == true) }}' bindtap='bindDotTap' data-id='{{ item.id }}'>
+              <view class='dot dot-gray'></view>
+            </view>
+            <view class='dot-area' wx:elif='{{ (selected_seats[item.id] == "selected") && (item.display == true) }}' bindtap='bindDotTap' data-id='{{ item.id }}'>
+              <view class='dot dot-orange'></view>
+            </view>
+            <view class='dot-area' wx:elif='{{ (selected_seats[item.id] == "occupied") && (item.display == true) }}'>
+              <view class='dot dot-blue'></view>
+            </view>
+            <view class='dot-area' wx:else>
+              <view class='dot dot-none'></view>
+            </view>
+          </block>
+        </view>
+        <view class='letter letter-right'>{{ item.letter }}</view>
+      </view>
+    </view>
+  </view>
+  <view class='footer' bindtap='bindFooterTap'>
+    <text>确认座位 & 支付</text>
+    <i class='icon icon-right'></i>
+  </view>
+</view>

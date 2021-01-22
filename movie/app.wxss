@@ -1,0 +1,22 @@
+/**app.wxss**/
+
+@import "style/icon.wxss";
+
+button::after{
+  border: none;
+}
+
+view {
+  box-sizing: border-box;
+}
+
+.scroll-view {
+  width: 100%;
+  white-space:nowrap;
+}
+
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
